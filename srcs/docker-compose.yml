@@ -1,0 +1,12 @@
+version: '3'
+services:
+  nginx:
+    build: 
+      context: ./requirements/nginx
+      dockerfile: Dockerfile
+    image: my-nginx-image
+    ports: 
+      - "443:443"
+    volumes:
+      - "./requirements/nginx/conf/:/etc/nginx/http.d"
+    
