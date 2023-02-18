@@ -8,5 +8,5 @@ services:
     ports: 
       - "443:443"
     volumes:
-      - "./requirements/nginx/conf/:/etc/nginx/http.d"
+      - "./home/aaggoujj/data:/etc/nginx/http.d"
     
