@@ -8,8 +8,11 @@ start:
 		docker-compose $(DOCKER_COMPOSE_F) up -d
 
 stop:
-		docker-compose down
+		docker-compose $(DOCKER_COMPOSE_F) stop
+down:
+		docker-compose $(DOCKER_COMPOSE_F) down
 up:
-	docker-compose -f $(DOCKER_COMPOSE_F) up
+		docker-compose -f $(DOCKER_COMPOSE_F) up
 
-.PHONY: build-webserver up stop start build
+
+.PHONY: up stop start build
