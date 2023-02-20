@@ -4,9 +4,27 @@ services:
     build: 
       context: ./requirements/nginx
       dockerfile: Dockerfile
-    image: my-nginx-image
+    container_name: nginx
+    image: my-nginx
     ports: 
       - "443:443"
     volumes:
       - "/home/aaggoujj/data:/etc/nginx/http.d"
+  
+  # mariadb:
+  #   build:
+  #     context: ./requirements/mariadb
+  #     dockerfile: Dockerfile
+  #   image: my-mariadb
+  #   container_name: database
+  #   restart: on-failure
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: ${SQL_ROOT_PASSWORD}
+  #     MYSQL_DATABASE: ${SQL_DATABASE}
+  #     MYSQL_USER: ${SQL_USER}
+  #     MYSQL_PASSWORD: ${SQL_PASSWORD}
+  #   ports:
+  #     - "3307:3306"
+  #   volumes:
+  #     - "/home/aaggoujj/data:/var/lib/mysql"
     

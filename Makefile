@@ -8,9 +8,9 @@ start:
 		docker-compose $(DOCKER_COMPOSE_F) up -d
 
 stop:
-		docker-compose $(DOCKER_COMPOSE_F) stop
+		docker-compose -f $(DOCKER_COMPOSE_F) stop
 down:
-		docker-compose $(DOCKER_COMPOSE_F) down
+		docker-compose -f $(DOCKER_COMPOSE_F) down
 up:
 		docker-compose -f $(DOCKER_COMPOSE_F) up
 
