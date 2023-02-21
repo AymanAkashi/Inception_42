@@ -1,30 +1,30 @@
 version: '3'
 services:
-  nginx:
-    build: 
-      context: ./requirements/nginx
-      dockerfile: Dockerfile
-    container_name: nginx
-    image: my-nginx
-    ports: 
-      - "443:443"
-    volumes:
-      - "/home/aaggoujj/data:/etc/nginx/http.d"
-  
-  # mariadb:
-  #   build:
-  #     context: ./requirements/mariadb
+  # nginx:
+  #   build: 
+  #     context: ./requirements/nginx
   #     dockerfile: Dockerfile
-  #   image: my-mariadb
-  #   container_name: database
-  #   restart: on-failure
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: ${SQL_ROOT_PASSWORD}
-  #     MYSQL_DATABASE: ${SQL_DATABASE}
-  #     MYSQL_USER: ${SQL_USER}
-  #     MYSQL_PASSWORD: ${SQL_PASSWORD}
-  #   ports:
-  #     - "3307:3306"
+  #   container_name: nginx
+  #   image: nginx:1337
+  #   ports: 
+  #     - "443:443"
   #   volumes:
-  #     - "/home/aaggoujj/data:/var/lib/mysql"
+  #     - "/home/aaggoujj/data:/etc/nginx/http.d"
+  
+  mariadb:
+    build:
+      context: ./requirements/mariadb
+      dockerfile: Dockerfile
+    image: mariadb:1337
+    container_name: database
+    restart: on-failure
+    environment:
+      MYSQL_ROOT_PASSWORD: abcd123
+      MYSQL_DATABASE: mariadatabbase
+      MYSQL_USER: mariadbuser
+      MYSQL_PASSWORD: abcd123
+    ports:
+      - "3306:3306"
+    volumes:
+      - "/home/aaggoujj/data:/var/lib/mysql"
     

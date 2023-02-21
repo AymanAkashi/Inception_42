@@ -1,10 +1,19 @@
 FROM debian:buster
 
 WORKDIR /
-RUN apt -y update && apt -y upgrade && apt install -y mariadb-server mariadb-client
-COPY ./tools/script.sh /
-COPY 	./conf/my.cnf /etc/mysql/
+RUN apt -y update && apt -y upgrade && apt install -y mariadb-server
 
-RUN chmod +x script.sh
+COPY ./tools/script.sh /tmp/script.sh
+# COPY 	./conf/my.cnf /etc/mysql/my.cnf
 
-# CMD ["sh", "script.sh"]
+ARG 	SQL_DATABASE \
+		SQL_USER \
+		SQL_PASSWORD \
+		SQL_ROOT_PASSWORD
+
+# RUN mysql_install_db --user=mysql --datadir=/var/lib/mysql
+RUN chmod +x /tmp/script.sh
+
+ENTRYPOINT ["/tmp/script.sh" ]
+CMD ["mysqld","--user=mysql"] 
+# CMD ["/bin/sh"]

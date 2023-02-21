@@ -1,7 +1,7 @@
 FROM 	alpine:3.16
 
 COPY 	./conf/nginx.conf /etc/nginx/nginx.conf
-COPY 	./tools/*.html /usr/share/nginx/html/
+COPY 	./tools/*.html /var/www/
 COPY 	./tools/script.sh /
 
 RUN sh ../script.sh
