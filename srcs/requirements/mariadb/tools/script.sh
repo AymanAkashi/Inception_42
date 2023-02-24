@@ -1,16 +1,20 @@
 #!/bin/sh
 if [ ! -d "/var/lib/mysql/mysql" ]; then
     mysql_install_db --user=mysql --datadir=/var/lib/mysql
-fi
-rc-service mariadb start
+    
+    mariadbd --bootstrap --user=mysql << EOF
 
-if [ ! -d "/var/lib/mysql/$SQL_DATABASE" ]
-then
-    mysql -u root -e "CREATE DATABASE IF NOT EXISTS $SQL_DATABASE; GRANT ALL ON $SQL_DATABASE.* TO '$SQL_USER'@'%' IDENTIFIED BY '$SQL_PASSWORD';"
-    mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${SQL_ROOT_PASSWORD}';"
-    mysql -u root -e "FLUSH PRIVILEGES;"
+    FLUSH PRIVILEGES;
+
+    ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';
+    
+    CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;
+
+    CREATE USER IF NOT EXISTS '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD'; 
+    GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';
+
+EOF
 fi
 
-rc-service mariadb stop
+
 mariadbd-safe --datadir=/var/lib/mysql
-
