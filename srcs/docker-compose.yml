@@ -1,42 +1,69 @@
-version: '3'
+version: '3.3'
 services:
+  #########       Nginx         #############
   nginx:
     build: 
       context: ./requirements/nginx
       dockerfile: Dockerfile
     container_name: nginx
     image: nginx:1337
+    restart: on-failure
+    depends_on:
+      - wordpress
     ports: 
       - "443:443"
     volumes:
       - type: volume
-        source: nginx-volume
-        target: /etc/nginx/http.d
+        source: wp-volume
+        target: /var/www/html
+    networks:
+      - net
   
+    #########       Mariadb         #############
+
   mariadb:
     build:
       context: ./requirements/mariadb
       dockerfile: Dockerfile
     image: mariadb:1337
-    container_name: database
+    container_name: mariadb
     restart: on-failure
     environment:
-      MYSQL_ROOT_PASSWORD: abcd123
-      MYSQL_DATABASE: mariadatabbase
-      MYSQL_USER: mariadbuser
-      MYSQL_PASSWORD: abcd123
-    ports:
-      - "3306:3306"
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    networks:
+      - net
     volumes:
       - type: volume
         source: mariadb-volume
         target: /var/lib/mysql
-  # wordpress:
-  #   build:
-  #     context: ./requirements/wordpress
-  #     dockerfile: Dockerfile
-  #   image: wordpress:1337
-  #   container_name: wordpress
+
+  #########       Wordpress         #############
+
+  wordpress:
+    build:
+      context: ./requirements/wordpress
+      dockerfile: Dockerfile
+    image: wordpress:1337
+    container_name: wordpress
+    depends_on:
+      - mariadb
+    restart: on-failure
+    ports:
+      - "9000:9000"
+    environment:
+        WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
+        WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
+        WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+        WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
+    volumes:
+      - type: volume
+        source: wp-volume
+        target: /var/www/html
+    networks:
+      - net
 
 
 volumes:
@@ -46,10 +73,13 @@ volumes:
       type: none
       o: bind
       device: /home/aaggoujj/data/mariadb
-  nginx-volume:
+  wp-volume:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/aaggoujj/data/nginx
+      device: /home/aaggoujj/data/wordpress
+
+networks:
+  net:
     
