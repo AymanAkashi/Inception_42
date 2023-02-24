@@ -2,18 +2,19 @@ WORKDIR = ./srcs
 DOCKER_COMPOSE_F = $(WORKDIR)/docker-compose.yml
 ENV = $(WORKDIR)/.env
 
+all: build up
+
 build: 
 		docker-compose -f $(DOCKER_COMPOSE_F) build
-
-start:
-		docker-compose $(DOCKER_COMPOSE_F) up -d
-
 stop:
 		docker-compose -f $(DOCKER_COMPOSE_F) stop
 down:
 		docker-compose -f $(DOCKER_COMPOSE_F) down
+		sudo rm -rf /home/aaggoujj/data/*
 up:
-		docker-compose -f $(DOCKER_COMPOSE_F) --env-file $(ENV) up
-
+		mkdir -p /home/aaggoujj/data/mariadb
+		mkdir -p /home/aaggoujj/data/wordpress
+		docker-compose -f $(DOCKER_COMPOSE_F) up -d
+re : down all
 
 .PHONY: up stop start build
