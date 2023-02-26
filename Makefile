@@ -17,4 +17,7 @@ up:
 		docker-compose -f $(DOCKER_COMPOSE_F) up -d
 re : down all
 
+logs:
+	docker-compose -f $(DOCKER_COMPOSE_F) logs -f
+
 .PHONY: up stop start build
