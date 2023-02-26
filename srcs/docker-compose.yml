@@ -28,11 +28,8 @@ services:
     image: mariadb:1337
     container_name: mariadb
     restart: on-failure
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    env_file:
+      - .env
     networks:
       - net
     volumes:
@@ -53,11 +50,8 @@ services:
     restart: on-failure
     ports:
       - "9000:9000"
-    environment:
-        WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
-        WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
-        WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
-        WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
+    env_file:
+      - .env
     volumes:
       - type: volume
         source: wp-volume
