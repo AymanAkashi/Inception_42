@@ -6,4 +6,4 @@ RUN apk add mariadb mariadb-client openrc
 COPY ./tools/script.sh /tmp/script.sh
 COPY ./conf/my.cnf /etc/my.cnf
 
-ENTRYPOINT [ "/tmp/script.sh" ]
+ENTRYPOINT [ "sh","/tmp/script.sh" ]
