@@ -13,9 +13,10 @@ RUN adduser -S nginx && addgroup -S nginx
 
 COPY ./conf/php-fpm.conf /etc/php7/
 
+COPY ./tools/*html /tmp
+
 COPY ./tools/script.sh /tmp
 
 
 ENTRYPOINT [ "sh","/tmp/script.sh"]
 
-CMD [ "tail","-f" ]

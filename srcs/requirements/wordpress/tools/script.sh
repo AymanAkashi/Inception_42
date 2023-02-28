@@ -1,31 +1,43 @@
-#!/bin/bash
+#!/bin/sh
 
-# change the owner of the directory of /var/www/html and all subdirectoriesf
+if [ ! -f "/var/www/html/index.html" ]; then
+	cp /tmp/index.html /var/www/html
 
-#changing the owner of /var/www/html/ to 755 
-chmod -R 755 /var/www/html/ 
+	mkdir -p /var/www/html/wordpress
+	chmod -R 755 /var/www/html/wordpress
+	cd /var/www/html/wordpress
 
-# move to /var/www/html/ directory
-cd /var/www/html/
+	wp core download --allow-root
 
-# download wordpress using wp-CLI 
-wp core download --allow-root
+	wp config create --dbname=$WP_DB_NAME --dbuser=$WP_ADMIN --dbpass=$WP_ADMIN_PASSWORD --dbhost=$MARIADB_HOSTNAME --allow-root
 
-# create wp-config.php file
-wp config create --dbname=mariadb --dbuser=mariadb --dbpass=abcd123 --dbhost=mariadb --allow-root
-# touch wp-config.php
 
-# copy the default configuration to wp-config.php
-# cp /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
+	wp core install --url=$WP_URL/wordpress --title=$WP_TITLE --admin_user=$WP_ADMIN --admin_password=$WP_ADMIN_PASSWORD --admin_email=$WP_ADMIN_EMAIL --skip-email --allow-root
 
-# change is modifying the unix socket used for the connection of PHP-FPM with the web server,
-# from the default /run/php/php7.3-fpm.sock to TCP/IP port 9000 .
-sed -i '36 s/\/run\/php\/php7.3-fpm.sock/9000/' /etc/php/7.3/fpm/pool.d/www.conf
+	wp user create $WP_USER $WP_USER_EMAIL --role=author --user_pass=$WP_USER_PASSWORD --allow-root
 
-# instal the wordpress
-wp core install --url=$DOMAIN_NAME --title="My Wordpress Site" --admin_user=$ADMIN_USER --admin_password=$ADMIN_PASSWORD --admin_email=$ADMIN_EMAIL --skip-email --allow-root
+	wp theme install inspiro --activate --allow-root
 
-# create second user in wordpress
-wp user create $USER $USER_EMAIL --user_pass=$USER_PASSWORD --role='author' --allow-root
+	# install & config redis
+	wp plugin install redis-cache --activate --allow-root
+
+	wp config set "WP_REDIS_HOST" 0.0.0.0 --allow-root
+	wp config set "WP_REDIS_PORT" 6379 --raw --allow-root
+	#reasonable connection and read+write
+	wp config set "WP_REDIS_TIMEOUT" 1 --raw --allow-root
+	wp config set "WP_REDIS_READ_TIMEOUT" 1 --raw --allow-root
+	wp config set "WP_REDIS_DATABASE" 0 --raw --allow-root
+
+	# install Adminer and theme of them
+	mkdir -p adminer
+	curl "https://github.com/vrana/adminer/releases/download/v4.8.1/adminer-4.8.1.php" --location -o adminer/index.php 
+	curl "https://raw.githubusercontent.com/vrana/adminer/master/designs/mvt/adminer.css" --location -o adminer/adminer.css 
+
+	chown -R nginx:nginx /var/www/html
+fi
+
+wp redis enable --allow-root
+
+# wp redis status --allow-root
 
 php-fpm7 -F
