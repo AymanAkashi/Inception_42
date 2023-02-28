@@ -58,6 +58,19 @@ services:
         target: /var/www/html
     networks:
       - net
+      - net-redis-wordpress
+  
+  redis:
+    build:
+      context: ./requirements/bonus/redis
+      dockerfile: Dockerfile
+    image:  redis:1337
+    container_name: redis
+    ports: 
+      - "6379:6379"
+    restart: on-failure
+    networks:
+      - net-redis-wordpress
 
 
 volumes:
@@ -76,4 +89,5 @@ volumes:
 
 networks:
   net:
+  net-redis-wordpress:
     
