@@ -60,6 +60,21 @@ services:
       - net
       - net-redis-wordpress
   
+  adminer:
+    build:
+      context: ./requirements/bonus/adminer
+      dockerfile: Dockerfile
+    volumes:
+      - type: volume
+        source: wp-volume
+        target: /var/www/html
+    depends_on:
+      - wordpress
+    ports:
+      - "800:800"
+    networks:
+      - net
+
   redis:
     build:
       context: ./requirements/bonus/redis
@@ -71,6 +86,26 @@ services:
     restart: on-failure
     networks:
       - net-redis-wordpress
+  # chess:
+  #   build:
+  #     context: ./requirements/bonus/myservice/chess
+  #     dockerfile: Dockerfile
+  #   restart: always
+  #   ports:
+  #     - "4003:5000"
+  myservice:
+    build:
+      context: ./requirements/bonus/myservice/portainer
+      dockerfile: Dockerfile
+    image: myservice:1337
+    container_name: portainer
+    ports:
+      - "9443:9443"
+      - "8000:8000"
+    restart: on-failure
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
 
 
 volumes:
@@ -86,6 +121,13 @@ volumes:
       type: none
       o: bind
       device: /home/aaggoujj/data/wordpress
+  portainer_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/aaggoujj/data/portainer
+    
 
 networks:
   net:
