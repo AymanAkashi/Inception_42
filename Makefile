@@ -14,6 +14,7 @@ down:
 up:
 		mkdir -p /home/aaggoujj/data/mariadb
 		mkdir -p /home/aaggoujj/data/wordpress
+		mkdir -p /home/aaggoujj/data/portainer
 		docker-compose -f $(DOCKER_COMPOSE_F) up -d
 re : down all
 
