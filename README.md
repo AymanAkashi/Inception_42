@@ -66,7 +66,7 @@ docker run <image_name> # Run the docker image
 A Dockerfile is a text document that contains all the commands a user could call on the command line to assemble an image.
 <br><br>
 
-### Example of Dockerfile
+#### Example of Dockerfile
 <br>
 
 ```Dockerfile
@@ -77,5 +77,66 @@ RUN yarn install --production
 CMD ["node", "src/index.js"]
 EXPOSE 3000
 ```
+<hr><br>
 
+<h3><li> What Docker Compose solves ?</li></h3>
 
+<br>
+
+First, Docker Compose is a tool for defining and running multi-container Docker applications. It allows you to define the services that make up your application in a YAML file, which can then be used to start and stop all the containers at once.<br><br>
+The main difference between Docker and Docker Compose is that Docker is used to build, run, and manage individual containers, while Docker Compose is used to define and run multi-container applications.
+
+### Example of docker-compose.yml :
+<br>
+
+```yml
+version: "3.9"
+services:
+  web:
+    build: . # Dockerfile Path
+    ports:
+      - "8000:5000"
+  redis:
+    image: "redis:alpine"
+```
+<hr><br>
+
+## NGINX
+
+* [NGINX](https://www.youtube.com/watch?v=JKxlsvZXG7c)  is open source software for web serving, reverse proxying, caching, load balancing, media streaming.
+
+For Dockerfile
+
+```Dockerfile
+FROM 	alpine:3.16.4
+
+COPY 	./conf/nginx.conf /etc/nginx/nginx.conf
+
+COPY 	./tools/script.sh /
+
+RUN     sh ../script.sh
+
+EXPOSE 	443 
+CMD 	["nginx", "-g", "daemon off;"]
+```
+
+in script i configurate Secure Sockets Layer or [SSL](https://www.cloudflare.com/learning/ssl/what-is-ssl/), and the configuration of nginx i set up in nginx.conf file here i [Full Example Configuration](https://www.nginx.com/resources/wiki/start/topics/examples/full/) of them.
+
+For configurate SSL we need to download `openssl` in your OS. but  you have to know what's [HTTP](https://www.cloudflare.com/learning/ddos/glossary/hypertext-transfer-protocol-http/), [HTTPS](https://www.cloudflare.com/learning/ssl/what-is-https/) and what is an [SSL Certificate](https://www.cloudflare.com/learning/ssl/what-is-an-ssl-certificate/)?
+
+You can create a self-signed key and certificate pair with OpenSSL in a single command:
+```sh
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt
+```
+
+<details>
+<summary>Command explining Here</summary>
+
+-`openssl`: This is the basic command line tool for creating and managing OpenSSL certificates, keys, and other files.<br>
+-`req`: This subcommand specifies that we want to use X.509 certificate signing request (CSR) management. The “X.509” is a public key infrastructure standard that SSL and TLS adheres to for its key and certificate management. We want to create a new X.509 cert, so we are using this subcommand.<br>
+-`x509`: This further modifies the previous subcommand by telling the utility that we want to make a self-signed certificate instead of generating a certificate signing request, as would normally happen.<br>
+-`nodes`: This tells OpenSSL to skip the option to secure our certificate with a passphrase. We need Nginx to be able to read the file, without user intervention, when the server starts up. A passphrase would prevent this from happening because we would have to enter it after every restart.<br>
+-`days 365`: This option sets the length of time that the certificate will be considered valid. We set it for one year here.<br>
+-`newkey rsa:2048`: This specifies that we want to generate a new certificate and a new key at the same time. We did not create the key that is required to sign the certificate in a previous step, so we need to create it along with the certificate. The rsa:2048 portion tells it to make an RSA key that is 2048 bits long.<br>
+-`keyout`: This line tells OpenSSL where to place the generated private key file that we are creating.<br>
+-`out`: This tells OpenSSL where to place the certificate that we are creating.
