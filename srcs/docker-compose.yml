@@ -92,9 +92,11 @@ services:
     build:
       context: ./requirements/bonus/myservice/chess
       dockerfile: Dockerfile
-    restart: always
+    image: chess:1337
+    container_name: chess
+    restart: on-failure
     ports:
-      - "40008:3000"
+      - "40004:8080"
   ftp:
     build:
       context: ./requirements/bonus/FTP
@@ -107,7 +109,7 @@ services:
     ports:
       - "20:20"
       - "21:21"
-      - "30000-30008:30000-30008"
+      - "30000-30009:30000-30009"
     volumes:
       - type: volume
         source: wp-volume
