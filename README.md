@@ -69,7 +69,7 @@ A Dockerfile is a text document that contains all the commands a user could call
 ### Example of Dockerfile
 <br>
 
-```Docker
+```Dockerfile
 FROM debian:buster # Base image
 WORKDIR /app 
 COPY src dest
