@@ -28,11 +28,7 @@ if [ ! -f "/var/www/html/index.html" ]; then
 	wp config set "WP_REDIS_READ_TIMEOUT" 1 --raw --allow-root
 	wp config set "WP_REDIS_DATABASE" 0 --raw --allow-root
 
-	# install Adminer and theme of them
-	# cd ..
-	# mkdir -p adminer
-	# curl "https://github.com/vrana/adminer/releases/download/v4.8.1/adminer-4.8.1.php" --location -o adminer/index.php 
-	# curl "https://raw.githubusercontent.com/vrana/adminer/master/designs/mvt/adminer.css" --location -o adminer/adminer.css 
+
 
 	chown -R nginx:nginx /var/www/html
 fi
