@@ -1,5 +1,6 @@
 version: '3.3'
 services:
+
   #########       Nginx         #############
   nginx:
     build: 
@@ -59,7 +60,7 @@ services:
     networks:
       - net
       - net-redis-wordpress
-  
+  ########        Adminer            ##########
   adminer:
     build:
       context: ./requirements/bonus/adminer
@@ -72,11 +73,10 @@ services:
     container_name: adminer
     depends_on:
       - nginx
-    # ports:
-    #   - "800:80"
     networks:
       - net
 
+###########         Redis           ##########
   redis:
     build:
       context: ./requirements/bonus/redis
@@ -88,6 +88,8 @@ services:
     restart: on-failure
     networks:
       - net-redis-wordpress
+
+  #############       CHess             ################
   chess:
     build:
       context: ./requirements/bonus/myservice/chess
@@ -97,6 +99,8 @@ services:
     restart: on-failure
     ports:
       - "40004:8080"
+
+  ##########          FTP           ##############
   ftp:
     build:
       context: ./requirements/bonus/FTP
@@ -119,7 +123,7 @@ services:
     networks:
       - net
 
-
+########          Portainer           ##########
   myservice:
     build:
       context: ./requirements/bonus/myservice/portainer
@@ -155,8 +159,6 @@ volumes:
       o: bind
       device: /home/aaggoujj/data/portainer
     
-
 networks:
   net:
   net-redis-wordpress:
-    
