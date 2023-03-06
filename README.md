@@ -176,7 +176,7 @@ sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/privat
 
 <div style="display: table;">
   <div style="display: table-cell; vertical-align: middle;">
-    <img src="https://assets.stickpng.com/images/58480f12cef1014c0b5e4931.png" width="35">
+    <img src="https://mariadb.com/wp-content/uploads/2019/11/mariadb-logo_blue-transparent.png" width="35">
   </div>
   <div style="display: table-cell; vertical-align: middle;">
     <h2>Mariadb</h2>
