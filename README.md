@@ -111,7 +111,14 @@ Note: A user can add containers to more than one network.
 Let’s move forward and look at the Advantages of networkin
 <hr>
 
-## NGINX
+<div style="display: table;">
+  <div style="display: table-cell; vertical-align: middle;">
+    <img src="https://cdn.iconscout.com/icon/free/png-256/nginx-3628948-3030173.png" width="35">
+  </div>
+  <div style="display: table-cell; vertical-align: middle;">
+    <h2>GNIX</h2>
+  </div>
+</div>
 
 * [NGINX](https://www.youtube.com/watch?v=JKxlsvZXG7c)  is open source software for web serving, reverse proxying, caching, load balancing, media streaming.
 <br>
@@ -167,7 +174,15 @@ sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/privat
 
 <hr><br>
 
-## MariaDB
+<div style="display: table;">
+  <div style="display: table-cell; vertical-align: middle;">
+    <img src="https://assets.stickpng.com/images/58480f12cef1014c0b5e4931.png" width="35">
+  </div>
+  <div style="display: table-cell; vertical-align: middle;">
+    <h2>Mariadb</h2>
+  </div>
+</div>
+
 <details>
 <summary>What is mariadb</summary>
 <br>
@@ -234,7 +249,15 @@ $>
 <br>
 <hr>
 
-## Wordpress
+<div style="display: table;">
+  <div style="display: table-cell; vertical-align: middle;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/WordPress_blue_logo.svg/1200px-WordPress_blue_logo.svg.png" width="30">
+  </div>
+  <div style="display: table-cell; vertical-align: middle;">
+    <h2>ordPress</h2>
+  </div>
+</div>
+
 
 <details>
 <summary>What is wordpress</summary>
@@ -279,8 +302,95 @@ ENTRYPOINT [ "sh","/tmp/script.sh"]
 
 ```
 
-in scripte you will Downloads core WordPress file and generated wp-config file using `wp` command 
+in scripte you will Downloads core WordPress file and generated wp-config file using `wp` command
 and run `php-fpm7 -F` for runing php fastcgi process manager and force to stay in foreground and ignore daemonize option from  configuration file.
+<hr>
+<div style="display: table;">
+  <div style="display: table-cell; vertical-align: middle;">
+    <img src="https://avatars.githubusercontent.com/u/1529926?s=200&v=4" width="30">
+  </div>
+  <div style="display: table-cell; vertical-align: middle;">
+    <h2>Redis</h2>
+  </div>
+</div>
+
+
+
+**Redis Cache** is an in-memory data store that can be used as a database, cache, streaming engine, and message broker. It provides an in-memory data store based on the Redis software and delivers sub-millisecond response times. Redis Cache is often used to speed up website page load time for users and improve the performance and scalability of applications that use backend data stores heavily.
+
+![Redis-cache](https://architecturenotes.co/content/images/2022/07/Redis-v2-separate-05.jpg)
+
+for install plugin redis-cache using `wp plugin install redis-cache --activate --allow-root`
+and for config redis you can set this configuration 
+```sh
+	wp config set "WP_REDIS_HOST" redis --allow-root
+	wp config set "WP_REDIS_PORT" 6379 --raw --allow-root
+	#reasonable connection and read + write
+	wp config set "WP_REDIS_TIMEOUT" 1 --raw --allow-root
+	wp config set "WP_REDIS_READ_TIMEOUT" 1 --raw --allow-root
+	wp config set "WP_REDIS_DATABASE" 0 --raw --allow-root
+```
+you can find all rescources [HERE](https://github.com/rhubarbgroup/redis-cache/#config).
+
+<hr>
+<br>
+
+
+<div style="display: table;">
+  <div style="display: table-cell; vertical-align: middle;">
+    <img src="https://neellik.com/wp-content/uploads/2022/03/adminer.png" width="50">
+  </div>
+  <div style="display: table-cell; vertical-align: middle;">
+    <h2>Adminer</h2>
+  </div>
+</div>
+
+
+Adminer is a free, open-source, web-based database management tool written in PHP. It is a full-featured database management system that allows users to manage databases easily. Adminer consists of a single file ready to deploy on your server and natively supports MySQL, MariaDB, PostgreSQL, SQLite, MS SQL, Oracle, Firebird, SimpleDB, Elasticsearch and MongoDB.
+
+Dockerfile
+
+```Dockerfile
+FROM alpine:3.16.4
+
+
+RUN sed -i "s/6/5/g" /etc/apk/repositories #change version of package APK
+
+RUN apk add --no-cache curl php7 php7-mysqli php7-pdo_mysql
+
+COPY ./tools/adminer-script.sh /tmp/adminer-script.sh
+
+ENTRYPOINT [ "./tmp/adminer-script.sh" ]
+```
+
+for setup adminer script
+
+```sh
+curl "https://github.com/vrana/adminer/releases/download/v4.8.1/adminer-4.8.1.php" --location -o index.php
+# Downlaoding CSS file to change the default theme
+curl "https://raw.githubusercontent.com/vrana/adminer/master/designs/mvt/adminer.css" --location -o adminer.css
+
+php -S 0.0.0.0:80
+```
+ressource of adminer [HERE](https://www.adminer.org/).
+
+<hr>
+
+<br>
+
+<div style="display: table;">
+  <div style="display: table-cell; vertical-align: middle;">
+    <img src="assets/ftp.png" width="50">
+  </div>
+  <div style="display: table-cell; vertical-align: middle;">
+    <h2>FTP</h2>
+  </div>
+</div>
+
+FTP stands for File Transfer Protocol, which is a standard communication protocol used for the transfer of computer files from a server to a client on a computer network. It is a way to download, upload, and transfer files from one location to another on the Internet and between computer systems. FTP is used to communicate and transfer files between computers on a TCP/IP (Transmission Control Protocol/Internet Protocol).
+
+For more informaition
+
 
 
 
