@@ -304,6 +304,16 @@ ENTRYPOINT [ "sh","/tmp/script.sh"]
 
 in scripte you will Downloads core WordPress file and generated wp-config file using `wp` command
 and run `php-fpm7 -F` for runing php fastcgi process manager and force to stay in foreground and ignore daemonize option from  configuration file.
+
+page of wordpress example:
+
+![wordpress page](assets/wordpress-page.gif)
+
+You can enter to admin page using path of wp-admin directory for example
+https://login.42.fr/wordpress/wp-admin
+
+![wp-admin](assets/Wp-admin.png)
+
 <hr>
 <div style="display: table;">
   <div style="display: table-cell; vertical-align: middle;">
@@ -407,7 +417,7 @@ For more informaition about FTP click [here](https://www.process.st/checklist/li
 
 
 
-you can just create html file (css if you have) and place them in wordpress path `/var/www/html` as `index.html`
+you can just create html file (css if you have) and place them in wordpress path `/var/www/html` as [`index.html`](https://github.com/AymanAkashi/Inception_42/blob/master/srcs/requirements/wordpress/tools/index.html)
 
 ```Dockerfile
 COPY  ./tools/index.html /var/www/html
@@ -415,10 +425,89 @@ COPY  ./tools/index.html /var/www/html
 
 so automatically after go website https://login.42.fr/ you can find them
 
-# TODO
+![Static webSite](assets/staticwebsite.gif)
 
 ---
 
+## Own service
+
+I have choice two service first one is portainer, and game of chess.
+
+<div style="display: table;">
+  <div style="display: table-cell; vertical-align: middle;">
+    <img src="https://res.cloudinary.com/canonical/image/fetch/f_auto,q_auto,fl_sanitize,c_fill,w_200,h_200/https://api.charmhub.io/api/v1/media/download/charm_Owpj9CsDEMZwVtup3ZTxxs0FtyvDqb2o_icon_5cef79c2d18f67464f39c8f2cf2d7ebb815b0071f04d3ffbb94f49fddd3ab666.png" width="40">
+  </div>
+  <div style="display: table-cell; vertical-align: middle;">
+    <h2>Portainer</h2>
+  </div>
+</div>
 
 
+
+Powerful container management
+for DevSecOps Deploy, configure, troubleshoot and secure containers in minutes on Kubernetes, Docker, Swarm and Nomad in any data center, cloud, network edge or IIOT device.
+
+So you can mangement all images containers networks ..., using interface website.
+
+![Portainer](assets/portainer.gif)
+
+
+<div style="display: table;">
+  <div style="display: table-cell; vertical-align: middle;">
+    <img src="https://www.freepnglogos.com/uploads/chess/black-king-chess-piece-tshirt-11.png" width="40">
+  </div>
+  <div style="display: table-cell; vertical-align: middle;">
+    <h2>Chess</h2>
+  </div>
+</div>
+
+
+I just using This [project](https://github.com/Aveek-Saha/Online-Chess) for create this chess game.
+
+```Dockerfile
+FROM alpine:3.16.4 AS clone
+RUN apk add git
+RUN git config --global advice.detachedHead false
+RUN git clone https://github.com/Aveek-Saha/Online-Chess.git /app
+WORKDIR /app
+RUN git checkout 12f39e091aeb54432937eae46c8c03f80e8fcfb2
+RUN rm -rf .git
+
+
+FROM alpine:3.16.4
+RUN apk add nodejs npm
+COPY --from=clone /app /app
+WORKDIR /app
+RUN npm install
+EXPOSE 8080
+CMD ["node", "index.js"]
+```
+
+![chess](assets/chess.gif)
+
+---
+
+## Ressources:
+
+#### Videos:
+  Docker:
+  * https://youtu.be/pTFZFxd4hOI
+  * https://youtu.be/gAkwW2tuIqE
+  * https://youtu.be/HG6yIjZapSA
+  
+  Mariadb:
+  * https://youtu.be/zsjvFFKOm3c
+  * https://youtu.be/ty8mi76UOks
+  * https://youtu.be/AXFc7R7-aYI
+  
+  Nginx:
+  * https://youtu.be/xNk8fZCuCMU
+  *  https://youtu.be/JKxlsvZXG7c
+  *  https://youtu.be/qxPdd-geqqA
+
+  redis & ftp:
+
+   * https://youtu.be/G1rOthIU-uo
+   * https://youtu.be/8A_iNFRP0F4
+   * https://youtu.be/HI0Oh4NJqcI
 
