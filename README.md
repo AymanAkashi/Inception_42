@@ -1,5 +1,5 @@
 # Inception_42
-This project is an introduction to Docker. It aims at setting up multiple services using Docker containers.
+This **project** is an introduction to Docker. It aims at setting up multiple services using Docker containers.
 <br>
 <br>
 <h3>What is Docker</h3>
@@ -389,7 +389,35 @@ ressource of adminer [HERE](https://www.adminer.org/).
 
 FTP stands for File Transfer Protocol, which is a standard communication protocol used for the transfer of computer files from a server to a client on a computer network. It is a way to download, upload, and transfer files from one location to another on the Internet and between computer systems. FTP is used to communicate and transfer files between computers on a TCP/IP (Transmission Control Protocol/Internet Protocol).
 
-For more informaition
+all configuration file you can found in this [part](https://github.com/AymanAkashi/Inception_42/tree/master/srcs/requirements/bonus/FTP) of repository.
+
+For more informaition about FTP click [here](https://www.process.st/checklist/linux-ftp-server-setup-checklist/)
+
+---
+
+
+<div style="display: table;">
+  <div style="display: table-cell; vertical-align: middle;">
+    <img src="https://www.freepnglogos.com/uploads/logo-website-png/logo-website-website-icon-with-png-and-vector-format-for-unlimited-22.png" width="40">
+  </div>
+  <div style="display: table-cell; vertical-align: middle;">
+    <h2>Static WebSite</h2>
+  </div>
+</div>
+
+
+
+you can just create html file (css if you have) and place them in wordpress path `/var/www/html` as `index.html`
+
+```Dockerfile
+COPY  ./tools/index.html /var/www/html
+```
+
+so automatically after go website https://login.42.fr/ you can find them
+
+# TODO
+
+---
 
 
 
