@@ -111,14 +111,7 @@ Note: A user can add containers to more than one network.
 Let’s move forward and look at the Advantages of networkin
 <hr>
 
-<div style="display: table;">
-  <div style="display: table-cell; vertical-align: middle;">
-    <img src="https://cdn.iconscout.com/icon/free/png-256/nginx-3628948-3030173.png" width="35">
-  </div>
-  <div style="display: table-cell; vertical-align: middle;">
-    <h2>NGNIX</h2>
-  </div>
-</div>
+![Nginx](https://download.logo.wine/logo/Nginx/Nginx-Logo.wine.png)
 
 * [NGINX](https://www.youtube.com/watch?v=JKxlsvZXG7c)  is open source software for web serving, reverse proxying, caching, load balancing, media streaming.
 <br>
@@ -174,14 +167,7 @@ sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/privat
 
 <hr><br>
 
-<div style="display: table;">
-  <div style="display: table-cell; vertical-align: middle;">
-    <img src="https://mariadb.com/wp-content/uploads/2019/11/mariadb-logo_blue-transparent.png" width="35">
-  </div>
-  <div style="display: table-cell; vertical-align: middle;">
-    <h2>Mariadb</h2>
-  </div>
-</div>
+![Mariadb](https://mariadb.com/wp-content/uploads/2019/11/mariadb-logo_blue-transparent.png)
 
 <details>
 <summary>What is mariadb</summary>
@@ -249,14 +235,7 @@ $>
 <br>
 <hr>
 
-<div style="display: table;">
-  <div style="display: table-cell; vertical-align: middle;">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/WordPress_blue_logo.svg/1200px-WordPress_blue_logo.svg.png" width="30">
-  </div>
-  <div style="display: table-cell; vertical-align: middle;">
-    <h2>WordPress</h2>
-  </div>
-</div>
+![Wordpress](https://s.w.org/style/images/about/WordPress-logotype-alternative.png)
 
 
 <details>
