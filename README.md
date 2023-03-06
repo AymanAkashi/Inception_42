@@ -116,7 +116,7 @@ Let’s move forward and look at the Advantages of networkin
     <img src="https://cdn.iconscout.com/icon/free/png-256/nginx-3628948-3030173.png" width="35">
   </div>
   <div style="display: table-cell; vertical-align: middle;">
-    <h2>GNIX</h2>
+    <h2>NGNIX</h2>
   </div>
 </div>
 
@@ -254,7 +254,7 @@ $>
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/WordPress_blue_logo.svg/1200px-WordPress_blue_logo.svg.png" width="30">
   </div>
   <div style="display: table-cell; vertical-align: middle;">
-    <h2>ordPress</h2>
+    <h2>WordPress</h2>
   </div>
 </div>
 
