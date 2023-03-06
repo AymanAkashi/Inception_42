@@ -4,7 +4,7 @@ COPY 	./conf/nginx.conf /etc/nginx/nginx.conf
 
 COPY 	./tools/script.sh /
 
-RUN sh ../script.sh
+RUN 	sh ../script.sh
 
 
 WORKDIR /app
