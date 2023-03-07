@@ -441,7 +441,7 @@ So you can mangement all images containers networks ..., using interface website
 </div>
 
 
-I just using This [project](https://github.com/Aveek-Saha/Online-Chess) for create this chess game.
+I found this game [project](https://github.com/Aveek-Saha/Online-Chess).
 
 ```Dockerfile
 FROM alpine:3.16.4 AS clone
